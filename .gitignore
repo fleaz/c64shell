@@ -16,3 +16,6 @@
 *.exe
 *.out
 *.app
+*.c64
+
+obj/

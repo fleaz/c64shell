@@ -2,13 +2,21 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "directory.h"
+#include "os.h"
+
+unsigned char current_drive;
+
 int evaluate(char* command){
-	printf("%s\n",command);	
-	
 	if (strcmp(command, "quit") == 0){
 		exit(0);
+	} else if (strcmp(command, "ls") == 0) {
+		return list_directory(current_drive);
+	} else if (strcmp(command, "cpu") == 0) {
+		return os_getcpu();
 	}
 	else{
+		printf("unknown command: %s\n",command);	
 		return 1;
 	}
 }
@@ -16,9 +24,10 @@ int evaluate(char* command){
 int main() {
 	char  line[81], character;
 	int   c;
+	current_drive=8;
 	do{
 		c = 0;
-		printf("root@c64: ");
+		printf("%d#:", current_drive);
 
 		do {
 			character = getchar();
